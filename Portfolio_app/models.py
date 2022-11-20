@@ -1,3 +1,4 @@
+import django
 from django.db import models
 
 
@@ -71,7 +72,7 @@ class Biography(models.Model):
 class Professional_Accomplishments(models.Model):
     id = models.AutoField(primary_key=True)
     accomplishment = models.TextField()
-    category = models.CharField(max_length=50, choices=relationship)
+    category = models.CharField(max_length=50, choices=relationship, blank=False, null=False, default='')
     proof_img = models.ImageField(null=True, blank=True)
     proof_pdf = models.FileField(null=True, blank=True)
 
@@ -101,6 +102,7 @@ class certifications(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=50, null=False, blank=False, default='', choices=title_8)
     link = models.URLField()
+    discrition = models.TextField(max_length=500, null=False, blank=False, default='')
 
     def __str__(self):
         return self.title
@@ -113,7 +115,8 @@ class Volunteering_community_service(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=50, null=False, blank=False, default='')
     description = models.TextField()
-    date = models.DateField()
+    date_deb = models.DateField(null=False, blank=False, default=django.utils.timezone.now)
+    date_fin = models.DateField(null=False, blank=False, default=django.utils.timezone.now)
 
     def __str__(self):
         return self.title
