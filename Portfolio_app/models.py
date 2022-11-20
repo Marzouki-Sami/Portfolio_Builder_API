@@ -15,6 +15,12 @@ title_8 = (
     ('license', 'license'),
 )
 
+category = (
+    ('freelance', 'freelance'),
+    ('academic project', 'academic project'),
+    ('personal project', 'personal project'),
+    ('other', 'other'),
+)
 
 class Users(models.Model):
     id = models.AutoField(primary_key=True)
@@ -61,6 +67,7 @@ class Biography(models.Model):
     twitter = models.URLField()
     facebook = models.URLField()
     instagram = models.URLField()
+    description = models.TextField(max_length=500, null=False, blank=False, default='')
 
     def __str__(self):
         return self.email
@@ -72,7 +79,7 @@ class Biography(models.Model):
 class Professional_Accomplishments(models.Model):
     id = models.AutoField(primary_key=True)
     accomplishment = models.TextField()
-    category = models.CharField(max_length=50, choices=relationship, blank=False, null=False, default='')
+    category = models.CharField(max_length=50, choices=category, blank=False, null=False, default='')
     proof_img = models.ImageField(null=True, blank=True)
     proof_pdf = models.FileField(null=True, blank=True)
 
@@ -87,7 +94,7 @@ class Awards_Honors(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=50, null=False, blank=False, default='')
     recognition_level = models.CharField(max_length=50, null=False, blank=False, default='')
-    date = models.DateField()
+    date = models.DateField(null=False, blank=False, default=django.utils.timezone.now)
     proof_img = models.ImageField(null=True, blank=True)
     proof_pdf = models.FileField(null=True, blank=True)
 
@@ -102,7 +109,7 @@ class certifications(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=50, null=False, blank=False, default='', choices=title_8)
     link = models.URLField()
-    discrition = models.TextField(max_length=500, null=False, blank=False, default='')
+    description = models.TextField(max_length=500, null=False, blank=False, default='')
 
     def __str__(self):
         return self.title
