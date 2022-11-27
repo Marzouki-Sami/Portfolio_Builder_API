@@ -1,6 +1,5 @@
-import django
 from django.db import models
-
+import django.utils.timezone
 
 relationship = (
     ('company', 'company'),
@@ -22,6 +21,7 @@ category = (
     ('other', 'other'),
 )
 
+
 class Users(models.Model):
     id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=50, null=False, blank=False, default='')
@@ -36,7 +36,7 @@ class Users(models.Model):
         db_table = 'user'
 
 
-class careerSummary(models.Model):
+class CareerSummary(models.Model):
     id = models.AutoField(primary_key=True)
     summary = models.TextField()
 
@@ -94,7 +94,7 @@ class Awards_Honors(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=50, null=False, blank=False, default='')
     recognition_level = models.CharField(max_length=50, null=False, blank=False, default='')
-    date = models.DateField(null=False, blank=False, default=django.utils.timezone.now)
+    date = models.DateField(null=False, blank=False, default=django.utils.timezone.now())
     proof_img = models.ImageField(null=True, blank=True)
     proof_pdf = models.FileField(null=True, blank=True)
 
@@ -105,7 +105,7 @@ class Awards_Honors(models.Model):
         db_table = 'Awards and Honors'
 
 
-class certifications(models.Model):
+class Certifications(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=50, null=False, blank=False, default='', choices=title_8)
     link = models.URLField()
@@ -141,7 +141,7 @@ class References_Testimonials(models.Model):
     strengths = models.TextField()
     abilities = models.TextField()
     experience = models.TextField()
-    recommendation_letter = models.FileField()
+    recommendation_letter = models.FileField(null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -154,12 +154,12 @@ class Portfolio(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=50, null=False, blank=False, default='')
     user = models.ForeignKey(Users, on_delete=models.CASCADE)
-    career_summary = models.ForeignKey(careerSummary, on_delete=models.CASCADE)
+    career_summary = models.ForeignKey(CareerSummary, on_delete=models.CASCADE)
     philosophy_statement = models.ForeignKey(PhilosophyStatement, on_delete=models.CASCADE)
     biography = models.ForeignKey(Biography, on_delete=models.CASCADE)
     professional_accomplishments = models.ForeignKey(Professional_Accomplishments, on_delete=models.CASCADE)
     awards_honors = models.ForeignKey(Awards_Honors, on_delete=models.CASCADE)
-    certifications = models.ForeignKey(certifications, on_delete=models.CASCADE)
+    certifications = models.ForeignKey(Certifications, on_delete=models.CASCADE)
     volunteering_community_service = models.ForeignKey(Volunteering_community_service, on_delete=models.CASCADE)
     references_testimonials = models.ForeignKey(References_Testimonials, on_delete=models.CASCADE)
 
