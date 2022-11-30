@@ -4,7 +4,7 @@ from rest_framework.parsers import JSONParser
 
 from Portfolio_app.models import Portfolio, CareerSummary, PhilosophyStatement, Biography, Professional_Accomplishments, \
     Awards_Honors, Certifications, Volunteering_community_service, References_Testimonials, Users
-from Portfolio_app.serializable import PortfolioSerializer, CareerSummarySerializer, PhilosophyStatementSerializer, \
+from Portfolio_app.serializers import PortfolioSerializer, CareerSummarySerializer, PhilosophyStatementSerializer, \
     BiographySerializer, Professional_AccomplishmentsSerializer, Awards_HonorsSerializer, CertificationsSerializer, \
     Volunteering_community_serviceSerializer, References_TestimonialsSerializer, UserSerializer
 
