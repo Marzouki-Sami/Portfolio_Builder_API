@@ -36,9 +36,22 @@ class Users(models.Model):
         db_table = 'user'
 
 
+class Portfolio(models.Model):
+    id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=50, null=False, blank=False, default='')
+    user = models.ForeignKey(Users, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        db_table = 'Portfolio'
+
+
 class CareerSummary(models.Model):
     id = models.AutoField(primary_key=True)
     summary = models.TextField()
+    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.summary
@@ -50,6 +63,7 @@ class CareerSummary(models.Model):
 class PhilosophyStatement(models.Model):
     id = models.AutoField(primary_key=True)
     statement = models.TextField()
+    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.statement
@@ -68,6 +82,7 @@ class Biography(models.Model):
     facebook = models.URLField()
     instagram = models.URLField()
     description = models.TextField(max_length=500, null=False, blank=False, default='')
+    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.email
@@ -82,6 +97,7 @@ class Professional_Accomplishments(models.Model):
     category = models.CharField(max_length=50, choices=category, blank=False, null=False, default='')
     proof_img = models.ImageField(null=True, blank=True)
     proof_pdf = models.FileField(null=True, blank=True)
+    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.accomplishment
@@ -97,6 +113,7 @@ class Awards_Honors(models.Model):
     date = models.DateField(null=False, blank=False, default=django.utils.timezone.now())
     proof_img = models.ImageField(null=True, blank=True)
     proof_pdf = models.FileField(null=True, blank=True)
+    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -110,6 +127,7 @@ class Certifications(models.Model):
     title = models.CharField(max_length=50, null=False, blank=False, default='', choices=title_8)
     link = models.URLField()
     description = models.TextField(max_length=500, null=False, blank=False, default='')
+    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -124,7 +142,7 @@ class Volunteering_community_service(models.Model):
     description = models.TextField()
     date_deb = models.DateField(null=False, blank=False, default=django.utils.timezone.now)
     date_fin = models.DateField(null=False, blank=False, default=django.utils.timezone.now)
-
+    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE, null=True, blank=True)
     def __str__(self):
         return self.title
 
@@ -142,29 +160,10 @@ class References_Testimonials(models.Model):
     abilities = models.TextField()
     experience = models.TextField()
     recommendation_letter = models.FileField(null=True, blank=True)
+    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.name
 
     class Meta:
         db_table = 'References and Testimonials'
-
-
-class Portfolio(models.Model):
-    id = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=50, null=False, blank=False, default='')
-    user = models.ForeignKey(Users, on_delete=models.CASCADE)
-    career_summary = models.ForeignKey(CareerSummary, on_delete=models.CASCADE)
-    philosophy_statement = models.ForeignKey(PhilosophyStatement, on_delete=models.CASCADE)
-    biography = models.ForeignKey(Biography, on_delete=models.CASCADE)
-    professional_accomplishments = models.ForeignKey(Professional_Accomplishments, on_delete=models.CASCADE)
-    awards_honors = models.ForeignKey(Awards_Honors, on_delete=models.CASCADE)
-    certifications = models.ForeignKey(Certifications, on_delete=models.CASCADE)
-    volunteering_community_service = models.ForeignKey(Volunteering_community_service, on_delete=models.CASCADE)
-    references_testimonials = models.ForeignKey(References_Testimonials, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        db_table = 'Portfolio'
