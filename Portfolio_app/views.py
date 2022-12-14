@@ -1,7 +1,11 @@
 from django.http import JsonResponse
+from django.shortcuts import render, redirect
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
-
+from .models import *
+from .forms import CareerSummary, form_PhilosophyStatement, form_Biography, form_Professional_Accomplishments, \
+    form_Awards_Honors, form_Certifications, form_Volunteering_community_service, form_References_Testimonials
+from Portfolio_app.forms import form_carrersummary
 from Portfolio_app.models import Portfolio, CareerSummary, PhilosophyStatement, Biography, Professional_Accomplishments, \
     Awards_Honors, Certifications, Volunteering_community_service, References_Testimonials, Users
 from Portfolio_app.serializers import PortfolioSerializer, CareerSummarySerializer, PhilosophyStatementSerializer, \
@@ -202,7 +206,8 @@ def update_or_delete_or_retrieve_biography(request, biography_id):
 def add_professional_accomplishments(request):
     if request.method == 'POST':
         professional_accomplishments_data = JSONParser().parse(request)
-        professional_accomplishments_serializer = Professional_AccomplishmentsSerializer(data=professional_accomplishments_data)
+        professional_accomplishments_serializer = Professional_AccomplishmentsSerializer(
+            data=professional_accomplishments_data)
         if professional_accomplishments_serializer.is_valid():
             professional_accomplishments_serializer.save()
             return JsonResponse(professional_accomplishments_serializer.data, status=201)
@@ -222,7 +227,8 @@ def update_or_delete_or_retrieve_professional_accomplishments(request, professio
         return JsonResponse(professional_accomplishments_serializer.data, status=200)
     elif request.method == 'PUT' or request.method == 'PATCH':
         professional_accomplishments_data = JSONParser().parse(request)
-        professional_accomplishments_serializer = Professional_AccomplishmentsSerializer(professional_accomplishments, data=professional_accomplishments_data)
+        professional_accomplishments_serializer = Professional_AccomplishmentsSerializer(professional_accomplishments,
+                                                                                         data=professional_accomplishments_data)
         if professional_accomplishments_serializer.is_valid():
             professional_accomplishments_serializer.save()
             return JsonResponse(professional_accomplishments_serializer.data, status=200)
@@ -310,7 +316,8 @@ def update_or_delete_or_retrieve_certifications(request, certifications_id):
 def add_volunteering_community_service(request):
     if request.method == 'POST':
         volunteering_community_service_data = JSONParser().parse(request)
-        volunteering_community_service_serializer = Volunteering_community_serviceSerializer(data=volunteering_community_service_data)
+        volunteering_community_service_serializer = Volunteering_community_serviceSerializer(
+            data=volunteering_community_service_data)
         if volunteering_community_service_serializer.is_valid():
             volunteering_community_service_serializer.save()
             return JsonResponse(volunteering_community_service_serializer.data, status=201)
@@ -322,15 +329,18 @@ def add_volunteering_community_service(request):
 @api_view(['GET', 'PUT', 'DELETE', 'PATCH'])
 def update_or_delete_or_retrieve_volunteering_community_service(request, volunteering_community_service_id):
     try:
-        volunteering_community_service = Volunteering_community_service.objects.get(pk=volunteering_community_service_id)
+        volunteering_community_service = Volunteering_community_service.objects.get(
+            pk=volunteering_community_service_id)
     except Volunteering_community_service.DoesNotExist:
         return JsonResponse({'message': 'Volunteering_community_service not found'}, status=404)
     if request.method == 'GET':
-        volunteering_community_service_serializer = Volunteering_community_serviceSerializer(volunteering_community_service)
+        volunteering_community_service_serializer = Volunteering_community_serviceSerializer(
+            volunteering_community_service)
         return JsonResponse(volunteering_community_service_serializer.data, status=200)
     elif request.method == 'PUT' or request.method == 'PATCH':
         volunteering_community_service_data = JSONParser().parse(request)
-        volunteering_community_service_serializer = Volunteering_community_serviceSerializer(volunteering_community_service, data=volunteering_community_service_data)
+        volunteering_community_service_serializer = Volunteering_community_serviceSerializer(
+            volunteering_community_service, data=volunteering_community_service_data)
         if volunteering_community_service_serializer.is_valid():
             volunteering_community_service_serializer.save()
             return JsonResponse(volunteering_community_service_serializer.data, status=200)
@@ -366,7 +376,8 @@ def update_or_delete_or_retrieve_references_testimonials(request, references_tes
         return JsonResponse(references_testimonials_serializer.data, status=200)
     elif request.method == 'PUT' or request.method == 'PATCH':
         references_testimonials_data = JSONParser().parse(request)
-        references_testimonials_serializer = References_TestimonialsSerializer(references_testimonials, data=references_testimonials_data)
+        references_testimonials_serializer = References_TestimonialsSerializer(references_testimonials,
+                                                                               data=references_testimonials_data)
         if references_testimonials_serializer.is_valid():
             references_testimonials_serializer.save()
             return JsonResponse(references_testimonials_serializer.data, status=200)
@@ -376,3 +387,111 @@ def update_or_delete_or_retrieve_references_testimonials(request, references_tes
         return JsonResponse({'message': 'References_Testimonials deleted successfully'}, status=200)
     else:
         return JsonResponse({'message': 'Method not allowed'}, status=405)
+
+
+def createCareerSummary(request):
+    form = form_carrersummary()
+
+    if request.method == 'POST':
+        form = form_carrersummary(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    context = {'form': form}
+
+    return render(request, 'CareerSummaryPage.html', context)
+
+
+def createPhilosophyStatement(request):
+    form = form_PhilosophyStatement()
+
+    if request.method == 'POST':
+        form = form_PhilosophyStatement(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    context = {'form': form}
+
+    return render(request, 'PhilosophyStatementPage.html', context)
+
+
+def createBiography(request):
+    form = form_Biography()
+
+    if request.method == 'POST':
+        form = form_Biography(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    context = {'form': form}
+
+    return render(request, 'BiographyPage.html', context)
+
+
+def createProfessional_Accomplishments(request):
+    form = form_Professional_Accomplishments()
+
+    if request.method == 'POST':
+        form = form_Professional_Accomplishments(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    context = {'form': form}
+
+    return render(request, 'Professional_AccomplishmentsPage.html', context)
+
+
+def createAwards_Honors(request):
+    form = form_Awards_Honors()
+
+    if request.method == 'POST':
+        form = form_Awards_Honors(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    context = {'form': form}
+
+    return render(request, 'Awards_HonorsPage.html', context)
+
+
+def createCertifications(request):
+    form = form_Certifications()
+
+    if request.method == 'POST':
+        form = form_Certifications(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    context = {'form': form}
+
+    return render(request, 'CertificationsPage.html', context)
+
+
+def createVolunteering_community_service(request):
+    form = form_Volunteering_community_service()
+
+    if request.method == 'POST':
+        form = form_Volunteering_community_service(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    context = {'form': form}
+
+    return render(request, 'Volunteering_community_servicePage.html', context)
+
+
+def createReferences_Testimonials(request):
+    form = form_References_Testimonials()
+
+    if request.method == 'POST':
+        form = form_References_Testimonials(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    context = {'form': form}
+
+    return render(request, 'References_TestimonialsPage.html', context)
+
+
+def index(request):
+    return render(request, 'index.html')

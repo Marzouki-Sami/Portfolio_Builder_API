@@ -143,6 +143,7 @@ class Volunteering_community_service(models.Model):
     date_deb = models.DateField(null=False, blank=False, default=django.utils.timezone.now)
     date_fin = models.DateField(null=False, blank=False, default=django.utils.timezone.now)
     portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE, null=True, blank=True)
+
     def __str__(self):
         return self.title
 
