@@ -1,5 +1,6 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
+from django.template import loader
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
 from .models import *
@@ -390,6 +391,8 @@ def update_or_delete_or_retrieve_references_testimonials(request, references_tes
 
 
 def createCareerSummary(request):
+    data = CareerSummary.objects.all()
+
     form = form_carrersummary()
 
     if request.method == 'POST':
@@ -397,9 +400,32 @@ def createCareerSummary(request):
         if form.is_valid():
             form.save()
             return redirect('index')
-    context = {'form': form}
+    context = {'form': form,
+               'data': data}
 
-    return render(request, 'CareerSummaryPage.html', context)
+    return render(request, 'Career Summary/CareerSummaryPage.html', context)
+
+
+def updateCareerSummary(request, pk):
+    data = CareerSummary.objects.get(id=pk)
+    form = form_carrersummary(instance=data)
+
+    if request.method == 'POST':
+        form = form_carrersummary(request.POST, instance=data)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    context = {'form': form}
+    return render(request, 'Career Summary/CareerSummaryUpdatePage.html', context)
+
+
+def deleteCareerSummary(request, pk):
+    data = CareerSummary.objects.get(id=pk)
+    if request.method == 'POST':
+        data.delete()
+        return redirect('index')
+    context = {'item': data}
+    return render(request, 'Career Summary/CareerSummaryDeletePage.html', context)
 
 
 def createPhilosophyStatement(request):
@@ -442,6 +468,9 @@ def createProfessional_Accomplishments(request):
 
 
 def createAwards_Honors(request):
+    award_honors = Awards_Honors.objects.all()
+    context = {'list_award_honors': award_honors}
+
     form = form_Awards_Honors()
 
     if request.method == 'POST':
@@ -449,9 +478,9 @@ def createAwards_Honors(request):
         if form.is_valid():
             form.save()
             return redirect('index')
-    context = {'form': form}
+    context = {'form': form, 'list_award_honors': award_honors}
 
-    return render(request, 'Awards_HonorsPage.html', context)
+    return render(request, 'Awards And Honors/Awards_HonorsPage.html', context)
 
 
 def createCertifications(request):
@@ -491,6 +520,34 @@ def createReferences_Testimonials(request):
     context = {'form': form}
 
     return render(request, 'References_TestimonialsPage.html', context)
+
+
+def affAward_Honors(request):
+    award_honors = Awards_Honors.objects.all()
+    context = {'list_award_honors': award_honors}
+    return render(request, 'Awards And Honors/Awards_HonorsPage.html', context)
+
+
+def updateAwards_Honors(request, pk):
+    award_honors = Awards_Honors.objects.get(id=pk)
+    form = form_Awards_Honors(instance=award_honors)
+
+    if request.method == 'POST':
+        form = form_Awards_Honors(request.POST, instance=award_honors)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    context = {'form': form}
+
+    return render(request, 'Awards And Honors/Awards_HonorsUpdatePage.html', context)
+
+
+def deleteAwards_Honors(request, pk):
+    award_honors = Awards_Honors.objects.get(id=pk)
+    if request.method == 'POST':
+        award_honors.delete()
+        return redirect('Awards_HonorsPage.html')
+    return render(request, 'Awards And Honors/Awards_HonorsDeletePage.html', {'item': award_honors})
 
 
 def index(request):

@@ -3,11 +3,15 @@
 {% load static %}
 {% block content %}
 
-    <form method="post" novalidate class="mb-3">
+        <p>{{ item.title }}</p>
+        <p>{{ item.recognition_level }}</p>
+        <p>{{ item.date }}</p>
+        <p>{{ item.portfolio_id }}</p>
+
+    <form method="post"  class="form-control-lg" style="width:60%;">
         {% csrf_token %}
-        {{ form|crispy }}
         <div>
-            <input type="submit" name="submit" class="btn btn-primary">
+            <input type="submit" name="submit" class="btn btn-outline-success btn-block">
         </div>
     </form>
 

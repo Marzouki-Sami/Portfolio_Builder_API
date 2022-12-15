@@ -50,13 +50,25 @@ urlpatterns = [
     path('findallportfolio', views.retrieve_or_add_portfolio),
     path('findalluser', views.retrieve_or_add_user),
 
+
+
+
     path('createCareerSummary/', views.createCareerSummary, name="create_career_summary"),
+    path('updateCareerSummary/<int:pk>', views.updateCareerSummary, name="update_career_summary"),
+    path('deleteCareerSummary/<int:pk>', views.deleteCareerSummary, name="delete_career_summary"),
+
     path('createPhilosophyStatement/', views.createPhilosophyStatement, name="create_philosophy_statement"),
     path('createBiography/', views.createBiography, name="create_biography"),
     path('createProfessionalAccomplishments/', views.createProfessional_Accomplishments, name="create_professional_accomplishments"),
-    path('createAwardsHonors/', views.createAwards_Honors, name="create_awards_honors"),
     path('createCertifications/', views.createCertifications, name="create_certifications"),
     path('createVolunteeringCommunityService/', views.createVolunteering_community_service, name="create_volunteering_community_service"),
     path('createReferencesTestimonials/', views.createReferences_Testimonials, name="create_references_testimonials"),
+
+
+    path('createAwardsHonors/', views.createAwards_Honors, name="create_awards_honors"),
+    path('updateAwardsHonors/<int:pk>', views.updateAwards_Honors, name="award_honor_update"),
+    path('deleteAwardsHonors/<int:pk>', views.deleteAwards_Honors, name="award_honor_delete"),
+
+
     path('', views.index)
 ]
