@@ -3,9 +3,14 @@
 {% load static %}
 {% block content %}
 
+        <p>{{ item.accomplishment }}</p>
+        <p>{{ item.category }}</p>
+        <p>{{ item.proof_img }}</p>
+        <p>{{ item.proof_pdf }}</p>
+        <p>{{ item.portfolio_id }}</p>
+
     <form method="post"  class="form-control-lg" style="width:60%;">
         {% csrf_token %}
-        {{ form|crispy }}
         <div>
             <input type="submit" name="submit" class="btn btn-outline-success btn-block">
         </div>

@@ -429,6 +429,9 @@ def deleteCareerSummary(request, pk):
 
 
 def createPhilosophyStatement(request):
+
+    data = PhilosophyStatement.objects.all()
+
     form = form_PhilosophyStatement()
 
     if request.method == 'POST':
@@ -436,12 +439,38 @@ def createPhilosophyStatement(request):
         if form.is_valid():
             form.save()
             return redirect('index')
-    context = {'form': form}
+    context = {'form': form,
+               'data': data}
 
-    return render(request, 'PhilosophyStatementPage.html', context)
+    return render(request, 'Philosophy Statement/PhilosophyStatementPage.html', context)
+
+
+def updatePhilosophyStatement(request, pk):
+    data = PhilosophyStatement.objects.get(id=pk)
+    form = form_PhilosophyStatement(instance=data)
+
+    if request.method == 'POST':
+        form = form_PhilosophyStatement(request.POST, instance=data)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    context = {'form': form}
+    return render(request, 'Philosophy Statement/PhilosophyStatementUpdatePage.html', context)
+
+
+def deletePhilosophyStatement(request, pk):
+    data = PhilosophyStatement.objects.get(id=pk)
+    if request.method == 'POST':
+        data.delete()
+        return redirect('index')
+    context = {'item': data}
+    return render(request, 'Philosophy Statement/PhilosophyStatementDeletePage.html', context)
 
 
 def createBiography(request):
+
+    data = Biography.objects.all()
+
     form = form_Biography()
 
     if request.method == 'POST':
@@ -449,12 +478,38 @@ def createBiography(request):
         if form.is_valid():
             form.save()
             return redirect('index')
-    context = {'form': form}
+    context = {'form': form,
+               'data': data}
 
-    return render(request, 'BiographyPage.html', context)
+    return render(request, 'Biography/BiographyPage.html', context)
+
+
+def updateBiography(request, pk):
+    data = Biography.objects.get(id=pk)
+    form = form_Biography(instance=data)
+
+    if request.method == 'POST':
+        form = form_Biography(request.POST, instance=data)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    context = {'form': form}
+    return render(request, 'Biography/BiographyUpdatePage.html', context)
+
+
+def deleteBiography(request, pk):
+    data = Biography.objects.get(id=pk)
+    if request.method == 'POST':
+        data.delete()
+        return redirect('index')
+    context = {'item': data}
+    return render(request, 'Biography/BiographyDeletePage.html', context)
 
 
 def createProfessional_Accomplishments(request):
+
+    data = Professional_Accomplishments.objects.all()
+
     form = form_Professional_Accomplishments()
 
     if request.method == 'POST':
@@ -462,9 +517,32 @@ def createProfessional_Accomplishments(request):
         if form.is_valid():
             form.save()
             return redirect('index')
-    context = {'form': form}
+    context = {'form': form,
+               'data': data}
 
-    return render(request, 'Professional_AccomplishmentsPage.html', context)
+    return render(request, 'Professional Accomplishments/Professional_AccomplishmentsPage.html', context)
+
+
+def updateProfessional_Accomplishments(request, pk):
+    data = Professional_Accomplishments.objects.get(id=pk)
+    form = form_Professional_Accomplishments(instance=data)
+
+    if request.method == 'POST':
+        form = form_Professional_Accomplishments(request.POST, instance=data)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    context = {'form': form}
+    return render(request, 'Professional Accomplishments/Professional_AccomplishmentsUpdatePage.html', context)
+
+
+def deleteProfessional_Accomplishments(request, pk):
+    data = Professional_Accomplishments.objects.get(id=pk)
+    if request.method == 'POST':
+        data.delete()
+        return redirect('index')
+    context = {'item': data}
+    return render(request, 'Professional Accomplishments/Professional_AccomplishmentsDeletePage.html', context)
 
 
 def createAwards_Honors(request):
@@ -484,6 +562,9 @@ def createAwards_Honors(request):
 
 
 def createCertifications(request):
+
+    data = Certifications.objects.all()
+
     form = form_Certifications()
 
     if request.method == 'POST':
@@ -491,12 +572,38 @@ def createCertifications(request):
         if form.is_valid():
             form.save()
             return redirect('index')
-    context = {'form': form}
+    context = {'form': form,
+               'data': data}
 
-    return render(request, 'CertificationsPage.html', context)
+    return render(request, 'Certifications/CertificationsPage.html', context)
+
+
+def updateCertifications(request, pk):
+    data = Certifications.objects.get(id=pk)
+    form = form_Certifications(instance=data)
+
+    if request.method == 'POST':
+        form = form_Certifications(request.POST, instance=data)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    context = {'form': form}
+    return render(request, 'Certifications/CertificationsUpdatePage.html', context)
+
+
+def deleteCertifications(request, pk):
+    data = Certifications.objects.get(id=pk)
+    if request.method == 'POST':
+        data.delete()
+        return redirect('index')
+    context = {'item': data}
+    return render(request, 'Certifications/CertificationsDeletePage.html', context)
 
 
 def createVolunteering_community_service(request):
+
+    data = Volunteering_community_service.objects.all()
+
     form = form_Volunteering_community_service()
 
     if request.method == 'POST':
@@ -504,12 +611,38 @@ def createVolunteering_community_service(request):
         if form.is_valid():
             form.save()
             return redirect('index')
-    context = {'form': form}
+    context = {'form': form,
+               'data': data}
 
-    return render(request, 'Volunteering_community_servicePage.html', context)
+    return render(request, 'Volunteering community service/Volunteering_community_servicePage.html', context)
+
+
+def updateVolunteering_community_service(request, pk):
+    data = Volunteering_community_service.objects.get(id=pk)
+    form = form_Volunteering_community_service(instance=data)
+
+    if request.method == 'POST':
+        form = form_Volunteering_community_service(request.POST, instance=data)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    context = {'form': form}
+    return render(request, 'Volunteering community service/Volunteering_community_serviceUpdatePage.html', context)
+
+
+def deleteVolunteering_community_service(request, pk):
+    data = Volunteering_community_service.objects.get(id=pk)
+    if request.method == 'POST':
+        data.delete()
+        return redirect('index')
+    context = {'item': data}
+    return render(request, 'Volunteering community service/Volunteering_community_serviceDeletePage.html', context)
 
 
 def createReferences_Testimonials(request):
+
+    data = References_Testimonials.objects.all()
+
     form = form_References_Testimonials()
 
     if request.method == 'POST':
@@ -517,9 +650,32 @@ def createReferences_Testimonials(request):
         if form.is_valid():
             form.save()
             return redirect('index')
-    context = {'form': form}
+    context = {'form': form,
+               'data': data}
 
-    return render(request, 'References_TestimonialsPage.html', context)
+    return render(request, 'References Testimonials/References_TestimonialsPage.html', context)
+
+
+def updateReferences_Testimonials(request, pk):
+    data = References_Testimonials.objects.get(id=pk)
+    form = form_References_Testimonials(instance=data)
+
+    if request.method == 'POST':
+        form = form_References_Testimonials(request.POST, instance=data)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    context = {'form': form}
+    return render(request, 'References Testimonials/References_TestimonialsUpdatePage.html', context)
+
+
+def deleteReferences_Testimonials(request, pk):
+    data = References_Testimonials.objects.get(id=pk)
+    if request.method == 'POST':
+        data.delete()
+        return redirect('index')
+    context = {'item': data}
+    return render(request, 'References Testimonials/References_TestimonialsDeletePage.html', context)
 
 
 def affAward_Honors(request):

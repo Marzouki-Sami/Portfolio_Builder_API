@@ -3,9 +3,18 @@
 {% load static %}
 {% block content %}
 
+        <p>{{ item.email }}</p>
+        <p>{{ item.personal_website }}</p>
+        <p>{{ item.linkedin }}</p>
+        <p>{{ item.github }}</p>
+        <p>{{ item.twitter }}</p>
+        <p>{{ item.facebook }}</p>
+        <p>{{ item.instagram }}</p>
+        <p>{{ item.description }}</p>
+        <p>{{ item.portfolio_id }}</p>
+
     <form method="post"  class="form-control-lg" style="width:60%;">
         {% csrf_token %}
-        {{ form|crispy }}
         <div>
             <input type="submit" name="submit" class="btn btn-outline-success btn-block">
         </div>
