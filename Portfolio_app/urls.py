@@ -85,5 +85,6 @@ urlpatterns = [
     path('updateReferencesTestimonials/<int:pk>', views.updateReferences_Testimonials, name="update_references_testimonials"),
     path('deleteReferencesTestimonials/<int:pk>', views.deleteReferences_Testimonials, name="delete_references_testimonials"),
 
-    path('', views.index)
+    # path('login/', views.login, name="login"),
+    path('', views.index, name="index"),
 ]
